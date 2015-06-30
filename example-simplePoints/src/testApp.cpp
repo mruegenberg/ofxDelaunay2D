@@ -1,4 +1,5 @@
 #include "testApp.h"
+#include "ofxDelaunay2D.h"
 
 //--------------------------------------------------------------
 void testApp::setup(){
@@ -14,15 +15,26 @@ void testApp::update(){
 
 //--------------------------------------------------------------
 void testApp::draw(){
+    ofBackground(255,250,240);
+    
     ofNoFill();
-    triangulation.draw();
+    ofSetColor(0,70,255);
+    m_triangulation.drawWireframe();
+
+    ofFill();
+    ofSetColor(200,0,50);
+    for(size_t i=0; i<m_points.size(); ++i) {
+        ofCircle(m_points[i].x, m_points[i].y, 3);
+    }
+    
     ofDrawBitmapString("'r' to reset", ofPoint(10,20));
 }
 
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
     if(key == 'r'){
-        triangulation.reset();
+        m_triangulation.clear();
+        m_points.clear();
     }
 }
 
@@ -47,10 +59,10 @@ void testApp::mousePressed(int x, int y, int button){
 }
 
 //--------------------------------------------------------------
-void testApp::mouseReleased(int x, int y, int button){
-
-    triangulation.addPoint(ofPoint(x,y));
-    triangulation.triangulate();
+void testApp::mouseReleased(int x, int y, int button) {
+    m_points.push_back(ofVec2f(x,y));
+    m_triangulation = ofxDelaunay2D::triangulate(m_points);
+    // printf("indices %d %d\n", m_triangulation.getNumIndices(), m_triangulation.getNumVertices());
 }
 
 //--------------------------------------------------------------
