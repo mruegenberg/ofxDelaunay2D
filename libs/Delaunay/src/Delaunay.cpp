@@ -81,7 +81,7 @@ int Triangulate(int nv, XY pxyz[], ITRIANGLE v[], int &ntri)
     IEDGE *edges = NULL;
     IEDGE *p_EdgeTemp;
     int nedge = 0;
-    int trimax, emax = 200;
+    int trimax, emax = 900;
     // int status = 0;
 
     int inside;

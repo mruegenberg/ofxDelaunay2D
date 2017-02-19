@@ -28,6 +28,7 @@ void testApp::draw(){
     }
     
     ofDrawBitmapString("'r' to reset", ofPoint(10,20));
+    ofDrawBitmapString("Click to add points.", ofPoint(10,40));
 }
 
 //--------------------------------------------------------------
